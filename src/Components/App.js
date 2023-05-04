@@ -24,6 +24,7 @@ const initialFormErrors = {
     special: '',
 }
 
+
 const initailOrders = []
 const initailDisabled = true
 
@@ -34,20 +35,28 @@ export default function App() {
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [disabled, setDisabled] = useState(initailDisabled)
 
+    // const getOrders = () => {
+    //     axios.get('https://reqres.in/api/orders')
+    //         .then(res => {
+    //             setOrders(res.data);
+    //         })
+    //         .catch(err => console.error(err));
+    // }
+
     const postNewOrder = newOrder => {
-        axios.post(newOrder)
-        .then(res => {
-            setOrders([res.data, ...orders]);
-        })
-        .catch(err => console.error(err))
-        .finally(() => setFormValues(initialFormValues))
+        axios.post('https://reqres.in/api/orders', newOrder)
+            .then(res => {
+                setOrders([res.data, ...orders]);
+            })
+            .catch(err => console.error(err))
+            .finally(() => setFormValues(initialFormValues));
     }
 
     const validate = (name, value) => {
         yup.reach(schema, name)
-        .validate(value)
-        .then(() => setFormErrors({...formErrors, [name]: ''}))
-        .catch(err => setFormErrors({...formErrors, [name]: err.errors[0]}))
+            .validate(value)
+            .then(() => setFormErrors({ ...formErrors, [name]: '' }))
+            .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
     }
     const inputChange = (name, value) => {
         validate(name, value);
@@ -56,7 +65,7 @@ export default function App() {
             [name]: value
         })
     }
-    
+
     const formSubmit = () => {
         const newOrder = {
             name: formValues.name.trim(),
@@ -67,9 +76,13 @@ export default function App() {
         postNewOrder(newOrder)
     }
 
+    // useEffect(() => {
+    //     getOrders()
+    // }, [])
+
     useEffect(() => {
         schema.isValid(formValues)
-        .then(valid => setDisabled(!valid))
+            .then(valid => setDisabled(!valid))
     }, [formValues])
 
 
@@ -79,7 +92,7 @@ export default function App() {
         <div className='container'>
             <header><h1>Build Your Own Pizza</h1></header>
 
-            <PizzaForm 
+            <PizzaForm
                 values={formValues}
                 change={inputChange}
                 submit={formSubmit}
@@ -90,12 +103,12 @@ export default function App() {
             {
                 orders.map(order => {
                     return (
-                        <Order key ={order.id} details={order} />
+                        <Order key={order.id} details={order} />
                     )
                 })
             }
         </div>
-       
+
     );
 
 

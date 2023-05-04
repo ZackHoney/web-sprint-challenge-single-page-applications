@@ -32,7 +32,7 @@ export default function PizzaForm(props) {
                 </div>
             </div>
 
-            <div classname='form-group inputs'>
+            <div className='form-group inputs'>
                 <h4>Build Your Own Pizza</h4>
 
                 <label id="name-input">Name For Order
@@ -126,7 +126,7 @@ export default function PizzaForm(props) {
                     <input
                     type='text'
                     name='special'
-                    checked={values.special}
+                    value={values.special}
                     onChange={onChange}
                     />
                 </label>
