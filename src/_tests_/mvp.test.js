@@ -1,6 +1,6 @@
 import React from "react";
 import axios from 'axios'
-import App from "../App";
+import App from "../Components/App";
 import { Router, MemoryRouter, BrowserRouter, Route } from 'react-router-dom'
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from '@testing-library/user-event'
