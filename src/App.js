@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from 'yup';
-import schema from '../validation/formSchema';
+import schema from './validation/formSchema';
 import PizzaForm from "./pizzaForm";
 import Order from './order';
 import axios from 'axios';
