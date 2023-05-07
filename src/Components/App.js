@@ -4,6 +4,8 @@ import schema from '../validation/formSchema';
 import PizzaForm from "./pizzaForm";
 import Order from './order';
 import axios from 'axios';
+import { Routes, Route } from 'react-router-dom';
+import Home from "./home";
 
 const initialFormValues = {
     name: '',
@@ -71,7 +73,7 @@ export default function App() {
     }
 
     useEffect(() => {
-        schema.isValid(formValues)
+       schema.isValid(formValues)
             .then(valid => setDisabled(!valid))
     }, [formValues])
 
@@ -82,13 +84,18 @@ export default function App() {
         <div className='container'>
             <header><h1>Build Your Own Pizza</h1></header>
 
-            <PizzaForm
+            <Routes>
+                <Route path='/' element={<Home />}/>
+                <Route path='/pizza' element={<PizzaForm  
                 values={formValues}
                 change={inputChange}
                 submit={formSubmit}
                 disabled={disabled}
                 errors={formErrors}
-            />
+                />} 
+                />
+            </Routes>
+
 
             {
                 orders.map(order => {
